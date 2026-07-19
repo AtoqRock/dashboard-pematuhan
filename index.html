@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Pelaporan KPM</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #f8fafc;
+      overflow: hidden;
+    }
+
+    /* Sidebar Menu Kiri */
+    .sidebar {
+      width: 300px;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-right: 1px dashed #cbd5e1;
+      box-sizing: border-box;
+      background-color: #ffffff;
+      height: 100vh;
+      flex-shrink: 0;
+    }
+
+    /* Logo & Profil Info */
+    .brand-section {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .brand-logo {
+      width: 160px;
+      height: auto;
+      margin-bottom: 12px;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+
+    /* Butang Menu Navigasi */
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .menu-btn:hover {
+      background-color: #e3cb62;
+      transform: translateX(4px);
+    }
+
+    .menu-btn.active {
+      background-color: #fefce0; 
+      border: 1px solid #f0e07d;
+    }
+
+    .menu-btn.active .icon-box {
+      background-color: #c7a302; 
+      color: #ffffff;
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background-color: #f1f5f9;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .text-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* Ruang Paparan Kanan */
+    .content-area {
+      flex: 1;
+      height: 100vh;
+      box-sizing: border-box;
+      background-color: #f1f5f9;
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  
+  <!-- Logo KPM & Info Tajuk Modul -->
+  <div class="brand-section">
+    <!-- Gantikan src dengan url logo anda jika ada -->
+    <img class="brand-logo" src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Coat_of_arms_of_Malaysia.svg" alt="Logo Malaysia">
+    <div class="brand-title">Kementerian Pendidikan<br>Bahagian Profesionalisme Guru</div>
+    <div class="brand-subtitle">Dashboard Pelaporan Modul</div>
+  </div>
+  
+  <!-- Butang 1 (Standard) -->
+  <a class="menu-btn active" href="https://lookerstudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+    <div class="icon-box">📖</div>
+    <div class="text-box">
+      <span class="title">Standard</span>
+      <span class="subtitle">Verifikasi SPLa</span>
+    </div>
+  </a>
+
+  <!-- Butang 2 (Pelaksanaan) -->
+  <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/81654b52-a3eb-4542-914c-828ea06b8d4b/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+    <div class="icon-box">🔁</div>
+    <div class="text-box">
+      <span class="title">Pelaksanaan</span>
+      <span class="subtitle">Pematuhan SPLa</span>
+    </div>
+  </a>
+
+  <!-- Butang 3 (Penceramah) -->
+  <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/c425c0ca-6335-49f9-b0a5-2e07682d5ddc/page/p_95s4pzyu2d" target="iframe_konten" onclick="tukarAktif(this)">
+    <div class="icon-box">🗣️</div>
+    <div class="text-box">
+      <span class="title">Penceramah/Slot</span>
+      <span class="subtitle">Penilaian Penceramah</span>
+    </div>
+  </a>
+
+  <!-- Butang 4 (Keberkesanan) -->
+  <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/c425c0ca-6335-49f9-b0a5-2e07682d5ddc/page/p_5zd1nxnq2d" target="iframe_konten" onclick="tukarAktif(this)">
+    <div class="icon-box">🏫</div>
+    <div class="text-box">
+      <span class="title">Keberkesanan</span>
+      <span class="subtitle">Penilaian Keberkesanan Latihan</span>
+    </div>
+  </a>
+
+  <!-- Butang 5 (Pemantau) -->
+  <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/c425c0ca-6335-49f9-b0a5-2e07682d5ddc/page/p_wye3qzpe4d" target="iframe_konten" onclick="tukarAktif(this)">
+    <div class="icon-box">📝</div>
+    <div class="text-box">
+      <span class="title">Pemantau</span>
+      <span class="subtitle">Penilaian Oleh Pemantau</span>
+    </div>
+  </a>
+
+</div>
+
+<div class="content-area">
+  <!-- Iframe diberikan nama & id yang sama untuk menerima penukaran pautan -->
+  <iframe id="iframe_konten" name="iframe_konten" src="https://lookerstudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" allowfullscreen></iframe>
+</div>
+
+<script>
+  function tukarAktif(element) {
+    var buttons = document.querySelectorAll('.menu-btn');
+    buttons.forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    element.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
