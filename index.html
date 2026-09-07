@@ -10,7 +10,8 @@
     :root {
       --primary-blue: #0b4db7;
       --dark-blue: #093f96;
-      --accent-blue: #3b71ca;
+      --accent-blue: #1d61d1;
+      --active-blue: #3b71ca;
     }
 
     * {
@@ -23,14 +24,14 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100vh;
       display: flex;
-      flex-direction: column; /* Mengatur susunan secara menegak (Header di atas) */
+      flex-direction: column; /* Header di atas, kandungan utama di bawah */
       background-color: #f8fafc;
       overflow: hidden;
     }
 
     /* ==================== 1. HEADER UTAMA ==================== */
     .top-header {
-      height: 85px; /* Ketinggian header yang disesuaikan untuk logo lebih besar */
+      height: 85px; /* Ketinggian header disesuaikan untuk logo besar */
       background-color: #ffffff;
       display: flex;
       align-items: center;
@@ -51,7 +52,7 @@
     }
 
     .header-logo {
-      height: 65px; /* Ketinggian logo KPM yang dibesarkan */
+      height: 65px; /* Saiz logo KPM yang dibesarkan */
       width: auto;
       margin-right: 15px;
       object-fit: contain;
@@ -93,11 +94,11 @@
       height: 100%;
       position: relative;
       padding-right: 25px;
-      background: var(--dark-blue); /* Latar biru gelap di sebelah kanan */
+      background: var(--dark-blue);
       color: #ffffff;
     }
 
-    /* Kesan jalur condong (Kuning & Biru) menggunakan CSS Pseudo-element */
+    /* Jalur condong (Kuning & Biru Cerah) */
     .header-right::before {
       content: "";
       position: absolute;
@@ -158,21 +159,22 @@
     .main-wrapper {
       display: flex;
       flex: 1;
-      height: calc(100vh - 85px); /* Menyesuaikan ketinggian baki skrin secara automatik */
+      height: calc(100vh - 85px);
       overflow: hidden;
     }
 
-    /* Sidebar Menu Kiri - Tema Biru Gelap */
+    /* Sidebar Menu Kiri */
     .sidebar {
       width: 260px;
       padding: 0;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      background-color: var(--primary-blue);
+      background-color: var(--dark-blue);
       height: 100%;
       flex-shrink: 0;
       overflow-y: auto;
+      position: relative;
     }
 
     .sidebar::-webkit-scrollbar {
@@ -184,34 +186,41 @@
       border-radius: 10px;
     }
 
+    /* Senarai Navigasi */
     .nav-list {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
       padding-top: 15px;
+      position: relative;
+      z-index: 2; /* Supaya butang duduk di atas imej latar */
     }
 
     .menu-btn {
       display: flex;
       align-items: center;
-      padding: 14px 20px;
+      padding: 13px 20px;
       background-color: transparent;
       cursor: pointer;
       transition: all 0.2s ease;
       text-decoration: none;
       color: #ffffff;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
       gap: 15px;
+      border-radius: 0 8px 8px 0;
+      margin-right: 10px;
     }
 
     .menu-btn:hover {
       background-color: rgba(255, 255, 255, 0.15);
     }
 
+    /* Keadaan Aktif */
     .menu-btn.active {
-      background-color: var(--accent-blue);
+      background: linear-gradient(90deg, #1d61d1 0%, #3b71ca 100%);
       font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
     .menu-btn i {
@@ -223,6 +232,27 @@
 
     .menu-text {
       line-height: 1.3;
+    }
+
+    /* Latar Bangunan di Bahagian Bawah Sidebar */
+    .sidebar-bg-building {
+      margin-top: auto; /* Menolak imej ke bawah sekali */
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.35; /* Kawal ketelusan imej di sini */
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-top: 30px;
+    }
+
+    .sidebar-bg-building img {
+      width: 100%;
+      height: auto;
+      display: block;
+      mix-blend-mode: luminosity; /* Menyebatikan grafik dengan warna biru */
     }
 
     /* Ruang Paparan Kanan */
@@ -246,7 +276,7 @@
   <!-- ==================== HEADER UTAMA ==================== -->
   <header class="top-header">
     <div class="header-left">
-      <!-- Tukar 'KPM_logo.png' kepada laluan/URL gambar logo KPM anda -->
+      <!-- Tukar 'KPM_logo.png' kepada nama/URL fail logo KPM anda -->
       <img class="header-logo" src="KPM_logo.png" alt="Logo KPM">
       
       <div class="header-title-box">
@@ -291,6 +321,8 @@
     
     <!-- Sidebar Kiri -->
     <div class="sidebar">
+      
+      <!-- Senarai Menu -->
       <div class="nav-list">
         <a class="menu-btn active" href="https://datastudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
           <i class="fa-solid fa-house"></i>
@@ -303,7 +335,7 @@
         </a>
 
         <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/81654b52-a3eb-4542-914c-828ea06b8d4b/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-          <i class="fa-solid fa-list-check"></i>
+          <i class="fa-solid fa-gear"></i>
           <span class="menu-text">Pelaksanaan SPLa</span>
         </a>
 
@@ -313,15 +345,22 @@
         </a>
 
         <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/ff08c01e-df02-4565-95d6-f8e8c89d9861/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-          <i class="fa-solid fa-chart-line"></i>
+          <i class="fa-solid fa-chart-column"></i>
           <span class="menu-text">Keberkesanan Program</span>
         </a>
 
         <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/8791b019-9a18-4451-910f-8b8afe893301/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-          <i class="fa-solid fa-check-double"></i>
+          <i class="fa-regular fa-clipboard"></i>
           <span class="menu-text">Pemantauan &amp;<br>Tindakan Susulan</span>
         </a>
       </div>
+
+      <!-- Imej Bangunan di Bahagian Bawah -->
+      <!-- Gantikan 'bangunan.png' dengan fail imej bangunan anda -->
+      <div class="sidebar-bg-building">
+        <img src="bangunan.png" alt="Latar Bangunan">
+      </div>
+
     </div>
 
     <!-- Ruang Paparan Iframe -->
@@ -373,7 +412,7 @@
       document.getElementById('masa-kemaskini').innerText = formatMasa;
     }
 
-    // Jalankan skrip tarikh secara automatik apabila halaman selesai dimuatkan
+    // Jalankan skrip apabila halaman selesai dimuatkan
     window.onload = function() {
       setTarikhSemasa();
     };
