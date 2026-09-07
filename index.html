@@ -30,7 +30,7 @@
 
     /* ==================== 1. HEADER UTAMA ==================== */
     .top-header {
-      height: 85px;
+      height: 85px; /* Ketinggian header yang disesuaikan untuk logo lebih besar */
       background-color: #ffffff;
       display: flex;
       align-items: center;
@@ -51,9 +51,10 @@
     }
 
     .header-logo {
-      height: 50px;
+      height: 65px; /* Ketinggian logo KPM yang dibesarkan */
       width: auto;
       margin-right: 15px;
+      object-fit: contain;
     }
 
     .header-title-box {
@@ -153,16 +154,15 @@
       background-color: rgba(255, 255, 255, 0.3);
     }
 
-
     /* ==================== 2. BEKAS UTAMA (SIDEBAR + CONTENT) ==================== */
     .main-wrapper {
       display: flex;
       flex: 1;
-      height: calc(100vh - 75px);
+      height: calc(100vh - 85px); /* Menyesuaikan ketinggian baki skrin secara automatik */
       overflow: hidden;
     }
 
-    /* Sidebar Menu Kiri */
+    /* Sidebar Menu Kiri - Tema Biru Gelap */
     .sidebar {
       width: 260px;
       padding: 0;
@@ -246,11 +246,11 @@
   <!-- ==================== HEADER UTAMA ==================== -->
   <header class="top-header">
     <div class="header-left">
-      <!-- Sila gantikan 'KPM_logo.png' dengan path logo Jata Negara/KPM anda -->
+      <!-- Tukar 'KPM_logo.png' kepada laluan/URL gambar logo KPM anda -->
       <img class="header-logo" src="KPM_logo.png" alt="Logo KPM">
       
       <div class="header-title-box">
-        <h1>KEMENTERIAN PENDIDIKAN</h1>
+        <h1>KEMENTERIAN PENDIDIKAN MALAYSIA</h1>
         <p>Bahagian Profesionalisme Guru</p>
       </div>
 
@@ -262,23 +262,23 @@
     <div class="header-right">
       <div class="header-info-group">
         
-        <!-- Tarikh Laporan -->
+        <!-- Tarikh Laporan Automatik -->
         <div class="info-item">
           <i class="fa-regular fa-calendar-check"></i>
           <div class="info-text-box">
             <span class="info-label">Tarikh Laporan</span>
-            <span class="info-value">22 Jun 2026</span>
+            <span class="info-value" id="tarikh-laporan">-</span>
           </div>
         </div>
 
         <div class="info-divider"></div>
 
-        <!-- Masa Dikemas Kini -->
+        <!-- Masa Dikemas Kini Automatik -->
         <div class="info-item">
           <i class="fa-solid fa-rotate"></i>
           <div class="info-text-box">
             <span class="info-label">Dikemas Kini</span>
-            <span class="info-value">22 Jun 2026 10:30 AM</span>
+            <span class="info-value" id="masa-kemaskini">-</span>
           </div>
         </div>
 
@@ -331,7 +331,9 @@
 
   </div>
 
+  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
+    // Fungsi Menukar Menu Aktif
     function tukarAktif(element) {
       var buttons = document.querySelectorAll('.menu-btn');
       buttons.forEach(function(btn) {
@@ -339,6 +341,42 @@
       });
       element.classList.add('active');
     }
+
+    // Fungsi Set Tarikh & Masa Automatik Mengikut Sistem
+    function setTarikhSemasa() {
+      const bulanNames = [
+        "Jan", "Feb", "Mac", "Apr", "Mei", "Jun", 
+        "Jul", "Ogo", "Sep", "Okt", "Nov", "Dis"
+      ];
+
+      const kini = new Date();
+
+      // Dapatkan Tarikh
+      const hari = kini.getDate();
+      const bulan = bulanNames[kini.getMonth()];
+      const tahun = kini.getFullYear();
+
+      // Dapatkan Masa (Format 12-Jam AM/PM)
+      let jam = kini.getHours();
+      const minit = kini.getMinutes().toString().padStart(2, '0');
+      const ampm = jam >= 12 ? 'PM' : 'AM';
+      
+      jam = jam % 12;
+      jam = jam ? jam : 12; // Jam '0' ditukar kepada '12'
+
+      // Format Teks
+      const formatTarikh = `${hari} ${bulan} ${tahun}`;
+      const formatMasa = `${hari} ${bulan} ${tahun} ${jam}:${minit} ${ampm}`;
+
+      // Masukkan ke dalam HTML
+      document.getElementById('tarikh-laporan').innerText = formatTarikh;
+      document.getElementById('masa-kemaskini').innerText = formatMasa;
+    }
+
+    // Jalankan skrip tarikh secara automatik apabila halaman selesai dimuatkan
+    window.onload = function() {
+      setTarikhSemasa();
+    };
   </script>
 
 </body>
