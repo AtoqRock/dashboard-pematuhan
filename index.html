@@ -7,36 +7,174 @@
   <!-- Pautan Font Awesome untuk ikon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-blue: #0b4db7;
+      --dark-blue: #093f96;
+      --accent-blue: #3b71ca;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
       height: 100vh;
+      display: flex;
+      flex-direction: column; /* Mengatur susunan secara menegak (Header di atas) */
       background-color: #f8fafc;
       overflow: hidden;
     }
 
-    /* Sidebar Menu Kiri - Tema Biru Gelap */
+    /* ==================== 1. HEADER UTAMA ==================== */
+    .top-header {
+      height: 75px;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      position: relative;
+      overflow: hidden;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    /* Bahagian Kiri Header: Logo & Slogan */
+    .header-left {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      z-index: 2;
+    }
+
+    .header-logo {
+      height: 50px;
+      width: auto;
+      margin-right: 15px;
+    }
+
+    .header-title-box {
+      border-right: 1.5px solid #cbd5e1;
+      padding-right: 20px;
+      margin-right: 20px;
+    }
+
+    .header-title-box h1 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.2;
+      letter-spacing: 0.3px;
+    }
+
+    .header-title-box p {
+      font-size: 13px;
+      color: #1e3a8a;
+      margin: 2px 0 0 0;
+      font-weight: 600;
+    }
+
+    .header-slogan {
+      font-size: 13px;
+      color: #1e3a8a;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    /* Bahagian Kanan Header: Corak Condong & Tarikh */
+    .header-right {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      position: relative;
+      padding-right: 25px;
+      background: var(--dark-blue); /* Latar biru gelap di sebelah kanan */
+      color: #ffffff;
+    }
+
+    /* Kesan jalur condong (Kuning & Biru) menggunakan CSS Pseudo-element */
+    .header-right::before {
+      content: "";
+      position: absolute;
+      left: -65px;
+      top: 0;
+      bottom: 0;
+      width: 70px;
+      background: var(--dark-blue);
+      transform: skewX(-25deg);
+      border-left: 8px solid #fbbf24; /* Jalur Kuning */
+      box-shadow: -6px 0 0 #0284c7;   /* Jalur Biru Cerah */
+    }
+
+    .header-info-group {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      position: relative;
+      z-index: 2;
+      font-size: 12px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-item i {
+      font-size: 22px;
+      opacity: 0.9;
+    }
+
+    .info-text-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 10px;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-value {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .info-divider {
+      width: 1px;
+      height: 25px;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+
+    /* ==================== 2. BEKAS UTAMA (SIDEBAR + CONTENT) ==================== */
+    .main-wrapper {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 75px);
+      overflow: hidden;
+    }
+
+    /* Sidebar Menu Kiri */
     .sidebar {
       width: 260px;
       padding: 0;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      background-color: #0b4db7; /* Warna biru utama */
-      height: 100vh;
+      background-color: var(--primary-blue);
+      height: 100%;
       flex-shrink: 0;
       overflow-y: auto;
     }
 
-    /* Ruang Kosong Atas (Sama seperti dalam gambar) */
-    .sidebar-header-space {
-      height: 80px;
-      background-color: #093f96; /* Ton warna biru lebih gelap di bahagian paling atas */
-    }
-
-    /* Kemaskan reka bentuk Scrollbar pada Sidebar */
     .sidebar::-webkit-scrollbar {
       width: 5px;
     }
@@ -46,16 +184,13 @@
       border-radius: 10px;
     }
 
-    /* Senarai Navigasi */
     .nav-list {
       display: flex;
       flex-direction: column;
       gap: 2px;
-      padding: 0;
-      margin: 0;
+      padding-top: 15px;
     }
 
-    /* Butang Menu Navigasi */
     .menu-btn {
       display: flex;
       align-items: center;
@@ -74,9 +209,8 @@
       background-color: rgba(255, 255, 255, 0.15);
     }
 
-    /* Keadaan Aktif (Menu dipelihara) */
     .menu-btn.active {
-      background-color: #3b71ca; /* Warna highlight aktif */
+      background-color: var(--accent-blue);
       font-weight: 600;
     }
 
@@ -94,7 +228,7 @@
     /* Ruang Paparan Kanan */
     .content-area {
       flex: 1;
-      height: 100vh;
+      height: 100%;
       box-sizing: border-box;
       background-color: #f1f5f9;
       position: relative;
@@ -109,64 +243,103 @@
 </head>
 <body>
 
-<div class="sidebar">
-  
-  <!-- Ruang Paling Atas -->
-  <div class="sidebar-header-space"></div>
+  <!-- ==================== HEADER UTAMA ==================== -->
+  <header class="top-header">
+    <div class="header-left">
+      <!-- Sila gantikan 'KPM_logo.png' dengan path logo Jata Negara/KPM anda -->
+      <img class="header-logo" src="KPM_logo.png" alt="Logo KPM">
+      
+      <div class="header-title-box">
+        <h1>KEMENTERIAN PENDIDIKAN MALAYSIA</h1>
+        <p>Bahagian Profesionalisme Guru</p>
+      </div>
 
-  <div class="nav-list">
-    <!-- Menu Laman Utama -->
-    <a class="menu-btn active" href="https://datastudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-      <i class="fa-solid fa-house"></i>
-      <span class="menu-text">Laman Utama</span>
-    </a>
+      <div class="header-slogan">
+        Pendidikan Berkualiti<br>Insan Terdidik Negara Sejahtera
+      </div>
+    </div>
 
-    <!-- Menu Standard Verifikasi SPLa -->
-    <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-      <i class="fa-regular fa-file-lines"></i>
-      <span class="menu-text">Standard Verifikasi SPLa</span>
-    </a>
+    <div class="header-right">
+      <div class="header-info-group">
+        
+        <!-- Tarikh Laporan -->
+        <div class="info-item">
+          <i class="fa-regular fa-calendar-check"></i>
+          <div class="info-text-box">
+            <span class="info-label">Tarikh Laporan</span>
+            <span class="info-value">22 Jun 2026</span>
+          </div>
+        </div>
 
-    <!-- Menu Pelaksanaan SPLa -->
-    <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/81654b52-a3eb-4542-914c-828ea06b8d4b/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-      <i class="fa-solid fa-list-check"></i>
-      <span class="menu-text">Pelaksanaan SPLa</span>
-    </a>
+        <div class="info-divider"></div>
 
-    <!-- Menu Penceramah & Slot -->
-    <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/8c040687-9881-439c-8290-4e2f12b486ca/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-      <i class="fa-solid fa-user"></i>
-      <span class="menu-text">Penceramah &amp; Slot</span>
-    </a>
+        <!-- Masa Dikemas Kini -->
+        <div class="info-item">
+          <i class="fa-solid fa-rotate"></i>
+          <div class="info-text-box">
+            <span class="info-label">Dikemas Kini</span>
+            <span class="info-value">22 Jun 2026 10:30 AM</span>
+          </div>
+        </div>
 
-    <!-- Menu Keberkesanan Program -->
-    <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/ff08c01e-df02-4565-95d6-f8e8c89d9861/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-      <i class="fa-solid fa-chart-line"></i>
-      <span class="menu-text">Keberkesanan Program</span>
-    </a>
+      </div>
+    </div>
+  </header>
 
-    <!-- Menu Pemantauan & Tindakan Susulan -->
-    <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/8791b019-9a18-4451-910f-8b8afe893301/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
-      <i class="fa-solid fa-check-double"></i>
-      <span class="menu-text">Pemantauan &amp;<br>Tindakan Susulan</span>
-    </a>
+  <!-- ==================== BEKAS UTAMA ==================== -->
+  <div class="main-wrapper">
+    
+    <!-- Sidebar Kiri -->
+    <div class="sidebar">
+      <div class="nav-list">
+        <a class="menu-btn active" href="https://datastudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+          <i class="fa-solid fa-house"></i>
+          <span class="menu-text">Laman Utama</span>
+        </a>
+
+        <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+          <i class="fa-regular fa-file-lines"></i>
+          <span class="menu-text">Standard Verifikasi SPLa</span>
+        </a>
+
+        <a class="menu-btn" href="https://lookerstudio.google.com/embed/reporting/81654b52-a3eb-4542-914c-828ea06b8d4b/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+          <i class="fa-solid fa-list-check"></i>
+          <span class="menu-text">Pelaksanaan SPLa</span>
+        </a>
+
+        <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/8c040687-9881-439c-8290-4e2f12b486ca/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+          <i class="fa-solid fa-user"></i>
+          <span class="menu-text">Penceramah &amp; Slot</span>
+        </a>
+
+        <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/ff08c01e-df02-4565-95d6-f8e8c89d9861/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+          <i class="fa-solid fa-chart-line"></i>
+          <span class="menu-text">Keberkesanan Program</span>
+        </a>
+
+        <a class="menu-btn" href="https://datastudio.google.com/embed/reporting/8791b019-9a18-4451-910f-8b8afe893301/page/mZD4F" target="iframe_konten" onclick="tukarAktif(this)">
+          <i class="fa-solid fa-check-double"></i>
+          <span class="menu-text">Pemantauan &amp;<br>Tindakan Susulan</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Ruang Paparan Iframe -->
+    <div class="content-area">
+      <iframe id="iframe_konten" name="iframe_konten" src="https://lookerstudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" allowfullscreen></iframe>
+    </div>
+
   </div>
 
-</div>
-
-<div class="content-area">
-  <iframe id="iframe_konten" name="iframe_konten" src="https://lookerstudio.google.com/embed/reporting/85805ae9-776c-4bb3-b2e2-d73507393f10/page/mZD4F" allowfullscreen></iframe>
-</div>
-
-<script>
-  function tukarAktif(element) {
-    var buttons = document.querySelectorAll('.menu-btn');
-    buttons.forEach(function(btn) {
-      btn.classList.remove('active');
-    });
-    element.classList.add('active');
-  }
-</script>
+  <script>
+    function tukarAktif(element) {
+      var buttons = document.querySelectorAll('.menu-btn');
+      buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
